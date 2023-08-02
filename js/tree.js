@@ -21,3 +21,8 @@ addLayer("tree-tab", {
     previousTab: "",
     leftTab: true,
 })
+addLayer("meta-tab", {
+    tabFormat: [["tree", function() {return (layoutInfo.treeLayout ? layoutInfo.treeLayout : TREE_LAYERS)}]],
+    previousTab: "",
+    leftTab: true,
+})

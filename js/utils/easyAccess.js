@@ -151,3 +151,19 @@ function challengeCanComplete(layer, id) {
 function inCompletion(layer, id, completion) {
     return inChallenge(layer, id) && challengeCompletions(layer, id) == completion
 }
+
+function giveUpgrade(layer, id) {
+    if(!player[layer].upgrades.includes(id)) player[layer].upgrades.push(id)
+}
+
+function giveMilestone(layer, id) {
+    if(!player[layer].milestones.includes(id)) player[layer].milestones.push(id)
+}
+
+function giveAchievement(layer, id) {
+    if(!player[layer].achievements.includes(id)) player[layer].achievements.push(id)
+}
+
+function upgradeRow(layer, row) {
+    return player[layer].upgrades.filter(upgrade => row.includes(Math.floor(upgrade / 10))).length
+}
