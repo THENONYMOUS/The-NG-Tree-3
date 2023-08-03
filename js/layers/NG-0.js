@@ -76,6 +76,7 @@ addLayer("p", {
         total: new Decimal(0),
         resetTime: 0,
     }},
+    canReset() {return new Decimal(tmp[this.layer].resetGain).gte(1) && player.points.gte(10)},
     color: "#00AAFF",
     requires: new Decimal(10),
     resource: "prestige points",
@@ -86,6 +87,7 @@ addLayer("p", {
     gainMult() {
         mult = new Decimal(1)
         if(player.add.points.gte(1)) mult = mult.add(upgradeRow('p', [1, 2]))
+        if(player.sub.points.gte(1)) mult = mult.div(2)
         return mult
     },
     gainExp() {
@@ -127,7 +129,7 @@ addLayer("p", {
             unlocked() {return false},
         },
     },
-    layerShown(){return (true || player[this.layer].best.gte(1)) && player.navTab === 'tree-tab'},
+    layerShown(){return player.navTab === 'tree-tab'},
     upgrades: {
         11: {
             title: "Prestige Upgrade 1-1",

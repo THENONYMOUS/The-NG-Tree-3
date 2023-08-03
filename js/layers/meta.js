@@ -50,13 +50,13 @@ addLayer("meta-navigation", {
             onPress(){save()},
         },
         {
-            key: "ctrl+,",
+            key: "ctrl+<",
             description: "CTRL + <: Switch to regular tree",
             onPress(){clickClickable('meta-navigation', 11)},
             unlocked(){return tmp[this.layer].layerShown},
         },
         {
-            key: "ctrl+.",
+            key: "ctrl+>",
             description: "CTRL + >: Switch to meta progression tree",
             onPress(){clickClickable('meta-navigation', 12)},
             unlocked(){return tmp[this.layer].layerShown},
@@ -199,7 +199,7 @@ addLayer("sub", {
                     "display-text",
                     function() {
                         let text = "Current Mode: NG-"+formatWhole(player.sub.points)+"<br><br>Modes Currently Enabled:<br><br>";
-                        if(player.sub.points.gte(1)) text += "NG-<br>- End of demo<br>- Point gain disabled";
+                        if(player.sub.points.gte(1)) text += "NG-<br>- Divide Point and Prestige Point gain by 2<br>- Unlock Generators<br><br>";
                         return text;
                     }
                 ],

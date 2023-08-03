@@ -3,7 +3,7 @@ let modInfo = {
 	id: "omgitsthenonymous-NG+tree-18463915026546489",
 	author: "Thenonymous",
 	pointsName: "points",
-	modFiles: ["layers/meta.js", "layers/NG-0.js", "tree.js"],
+	modFiles: ["layers/meta.js", "layers/NG-0.js", "layers/NG-1.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +13,14 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1",
-	name: "Small Demo",
+	num: "0.2",
+	name: "Normal-Sized Demo",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.2</h3><br>
+		- Extended Demo.<br>
+		- Added Generators.<br>
 	<h3>v0.1</h3><br>
 		- Released as Demo.<br>
 		- Added Prestige, Boosters, Additions and Subtractions.<br>`
@@ -34,7 +37,7 @@ function getStartPoints(){
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	return !player.sub.points.gte(1)
+	return !player.sub.points.gte(2)
 }
 
 // Calculate points/sec!
@@ -45,6 +48,10 @@ function getPointGen() {
 	let gain = new Decimal(1)
 	gain = gain.add(upgradeRow('p', [1, 2]))
 	gain = gain.mul(tmp.b.effect)
+	gain = gain.mul(tmp.g.effect2)
+
+	// NG-
+	if(player.sub.points.gte(1)) gain = gain.div(2)
 	return gain
 }
 
@@ -58,7 +65,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.sub.points.gte(1)
+	return player.sub.points.gte(1) && player.add.points.gte(1)
 }
 
 
