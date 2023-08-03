@@ -206,9 +206,9 @@ addLayer("sub", {
 
                         if(player.sub.points.gte(1)) text += "NG-<br>- Divide Point and Prestige Point gain by 2<br>- Unlock Generators<br><br>";
 
-                        if(player.sub.points.gte(1)) text += "NG--<br>- Prestige Upgrade costs are multiplied by Prestige Upgrades in the same row<br>- Booster costs are multiplied by Boosters<br>- Unlock Achievements<br><br>";
+                        if(player.sub.points.gte(2)) text += "NG--<br>- Prestige Upgrade costs are multiplied by Prestige Upgrades in the same row<br>- Booster costs are multiplied by Boosters<br>- Unlock Achievements<br><br>";
 
-                        if(player.sub.points.gte(1)) text += "NG-3<br>- You gain 25% less Boosters and Generators<br>- You can only Prestige if you would gain at least 2 Prestige points on reset<br><br>";
+                        if(player.sub.points.gte(3)) text += "NG-3<br>- You gain 25% less Boosters and Generators<br>- You can only Prestige if you would gain at least 2 Prestige points on reset<br><br>";
                         return text;
                     }
                 ],
