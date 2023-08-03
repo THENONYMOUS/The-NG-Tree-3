@@ -56,8 +56,18 @@ addLayer("meta-navigation", {
             unlocked(){return tmp[this.layer].layerShown},
         },
         {
+            key: "ctrl+,",
+            onPress(){clickClickable('meta-navigation', 11)},
+            unlocked(){return tmp[this.layer].layerShown},
+        },
+        {
             key: "ctrl+>",
             description: "CTRL + >: Switch to meta progression tree",
+            onPress(){clickClickable('meta-navigation', 12)},
+            unlocked(){return tmp[this.layer].layerShown},
+        },
+        {
+            key: "ctrl+.",
             onPress(){clickClickable('meta-navigation', 12)},
             unlocked(){return tmp[this.layer].layerShown},
         },
