@@ -75,7 +75,7 @@ addLayer("g", {
         player.g.power = player.g.power.add(this.effect().mul(diff))
     },
     effectDescription() {return "generating "+format(this.effect())+" generator power every second"},
-    layerShown(){return (upgradeRow('p', [1]) >= 4 || player[this.layer].best.gte(1)) && player.navTab === 'tree-tab'},
+    layerShown(){return ((upgradeRow('p', [1]) >= 4 && player.sub.points.gte(1)) || player[this.layer].best.gte(1)) && player.navTab === 'tree-tab'},
     milestones: {
         0: {
             requirementDescription: "4 Generators",
