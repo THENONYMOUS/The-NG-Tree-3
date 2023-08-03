@@ -1,6 +1,6 @@
 let modInfo = {
 	name: "NG+Tree",
-	id: "omgitsthenonymous-NG+tree-18463915026546489",
+	id: "omgitsthenonymous-NG+tree-184639150265464899",
 	author: "Thenonymous",
 	pointsName: "points",
 	modFiles: [
