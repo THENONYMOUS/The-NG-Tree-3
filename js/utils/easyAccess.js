@@ -165,5 +165,9 @@ function giveAchievement(layer, id) {
 }
 
 function upgradeRow(layer, row) {
-    return player[layer].upgrades.filter(upgrade => row.includes(Math.floor(upgrade / 10))).length
+    return new Decimal(player[layer].upgrades.filter(upgrade => row.includes(Math.floor(upgrade / 10))).length)
+}
+
+function achievementRow(layer, row) {
+    return new Decimal(player[layer].achievements.filter(achievement => row.includes(Math.floor(achievement / 10))).length)
 }

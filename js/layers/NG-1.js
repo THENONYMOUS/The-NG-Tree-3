@@ -26,6 +26,11 @@ addLayer("g", {
         let exp = new Decimal(1)
         return exp
     },
+    directMult() {
+        mult = new Decimal(1)
+        if(player.sub.points.gte(3)) mult = mult.mul(0.75)
+        return mult
+    },
     row: 1,
     hotkeys: [
         {
@@ -39,6 +44,7 @@ addLayer("g", {
         if(layers[resettingLayer].row <= this.row) return;
 
         let keep = [];
+        if(layers[resettingLayer].row < 1000) keep.push("milestones")
         layerDataReset(this.layer, keep);
     },
     tabFormat: {
@@ -63,11 +69,26 @@ addLayer("g", {
         },
     },
     branches: ["p"],
-    effect() {return player[this.layer].points.max(0).pow_base(2).sub(1)},
+    effect() {return player[this.layer].points.max(0).pow_base(hasAchievement('ach', 32) ? player.t.points : decimalZero.add(2)).sub(1).mul(player.add.points.gte(2) ? tmp.b.effect : 1)},
     effect2() {return player.g.power.add(1).root(4)},
     update(diff) {
-        if(tmp[this.layer].layerShown) player.g.power = player.g.power.add(this.effect().mul(diff))
+        player.g.power = player.g.power.add(this.effect().mul(diff))
     },
     effectDescription() {return "generating "+format(this.effect())+" generator power every second"},
     layerShown(){return (upgradeRow('p', [1]) >= 4 || player[this.layer].best.gte(1)) && player.navTab === 'tree-tab'},
+    milestones: {
+        0: {
+            requirementDescription: "4 Generators",
+            effectDescription: "Auto-buy Prestige Upgrades",
+            done() {return player.g.points.gte(4) && player.add.points.gte(2)},
+            unlocked() {return player.add.points.gte(2)},
+            toggles: [["p", "autoUpg"]],
+        },
+        1: {
+            requirementDescription: "6 Generators",
+            effectDescription: "Gain 100% of Prestige Gain every second",
+            done() {return player.g.points.gte(6) && player.add.points.gte(2)},
+            unlocked() {return player.add.points.gte(2)},
+        },
+    },
 })

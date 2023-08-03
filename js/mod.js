@@ -3,7 +3,14 @@ let modInfo = {
 	id: "omgitsthenonymous-NG+tree-18463915026546489",
 	author: "Thenonymous",
 	pointsName: "points",
-	modFiles: ["layers/meta.js", "layers/NG-0.js", "layers/NG-1.js", "tree.js"],
+	modFiles: [
+		"layers/meta.js",
+		"layers/NG-0.js",
+		"layers/NG-1.js",
+		"layers/NG-2.js",
+		"layers/NG-3.js",
+		"tree.js",
+	],
 
 	discordName: "",
 	discordLink: "",
@@ -13,11 +20,14 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2",
-	name: "Normal-Sized Demo",
+	num: "1.0",
+	name: "Full Release ig",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v1.0</h3><br>
+		- Added up until NG-3 and NG+2.<br>
+		- Added Achievements and Time Capsules.<br>
 	<h3>v0.2</h3><br>
 		- Extended Demo.<br>
 		- Added Generators.<br>
@@ -37,7 +47,7 @@ function getStartPoints(){
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	return !player.sub.points.gte(2)
+	return !player.sub.points.gte(4)
 }
 
 // Calculate points/sec!
@@ -47,8 +57,11 @@ function getPointGen() {
 
 	let gain = new Decimal(1)
 	gain = gain.add(upgradeRow('p', [1, 2]))
+	gain = gain.add(achievementRow('ach', [1]))
 	gain = gain.mul(tmp.b.effect)
 	gain = gain.mul(tmp.g.effect2)
+	gain = gain.mul(tmp.t.effect2)
+	if(hasAchievement('ach', 22)) gain = gain.mul(2)
 
 	// NG-
 	if(player.sub.points.gte(1)) gain = gain.div(2)
@@ -61,11 +74,25 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
+	function() {
+		let mode = "Current Mode: NG";
+		let i = 0;
+		while(new Decimal(i).lt(player.sub.points)) {
+			i++;
+			mode += "-";
+		}
+		i = 0;
+		while(new Decimal(i).lt(player.add.points)) {
+			i++;
+			mode += "+";
+		}
+		return mode;
+	},
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.sub.points.gte(1) && player.add.points.gte(1)
+	return player.sub.points.gte(4)
 }
 
 

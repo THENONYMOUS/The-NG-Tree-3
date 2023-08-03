@@ -134,7 +134,11 @@ addLayer("add", {
                     "display-text",
                     function() {
                         let text = "Current Mode: NG+"+formatWhole(player.add.points)+"<br><br>Modes Currently Enabled:<br><br>";
+
                         if(player.add.points.gte(1)) text += "NG+<br>- Prestige Points are affected by their own upgrades<br>- Unlock a new row of Prestige Upgrades<br>";
+                        if(player.add.points.gte(1) && player.sub.points.gte(3)) text += "- Since you are in at least NG-3 though, Prestige Requirement is <i>also</i> affected by Prestige Upgrades. 🤣<br><br>";
+                        
+                        if(player.add.points.gte(2)) text += "NG++<br>- Booster effect multiplies Generator Power gain<br>- Unlock Generator Milestones<br>";
                         return text;
                     }
                 ],
@@ -162,7 +166,7 @@ addLayer("sub", {
     baseResource: "points",
     baseAmount() {return player.points},
     type: "static",
-    exponent: 1,
+    exponent: 2,
     base: 10,
     gainMult() {
         mult = new Decimal(1)
@@ -199,7 +203,12 @@ addLayer("sub", {
                     "display-text",
                     function() {
                         let text = "Current Mode: NG-"+formatWhole(player.sub.points)+"<br><br>Modes Currently Enabled:<br><br>";
+
                         if(player.sub.points.gte(1)) text += "NG-<br>- Divide Point and Prestige Point gain by 2<br>- Unlock Generators<br><br>";
+
+                        if(player.sub.points.gte(1)) text += "NG--<br>- Prestige Upgrade costs are multiplied by Prestige Upgrades in the same row<br>- Booster costs are multiplied by Boosters<br>- Unlock Achievements<br><br>";
+
+                        if(player.sub.points.gte(1)) text += "NG-3<br>- You gain 25% less Boosters and Generators<br>- You can only Prestige if you would gain at least 2 Prestige points on reset<br><br>";
                         return text;
                     }
                 ],
