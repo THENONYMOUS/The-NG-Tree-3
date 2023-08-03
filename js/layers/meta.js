@@ -11,7 +11,7 @@ addLayer("meta-navigation", {
     }},
     color: "rgba(255, 255, 255, 0.25)",
     requires: new Decimal(10),
-    resource: "prestige points",
+    resource: "useless paperclips",
     baseResource: "points",
     baseAmount() {return player.points},
     type: "none",
@@ -204,7 +204,7 @@ addLayer("sub", {
                     function() {
                         let text = "Current Mode: NG-"+formatWhole(player.sub.points)+"<br><br>Modes Currently Enabled:<br><br>";
 
-                        if(player.sub.points.gte(1)) text += "NG-<br>- Divide Point and Prestige Point gain by 2<br>- Unlock Generators<br><br>";
+                        if(player.sub.points.gte(1)) text += "NG-<br>- Divide Prestige Point gain by 2<br>- Booster effect is halfed but is always at least 1<br>- Unlock Generators<br><br>";
 
                         if(player.sub.points.gte(2)) text += "NG--<br>- Prestige Upgrade costs are multiplied by Prestige Upgrades in the same row<br>- Booster costs are multiplied by Boosters<br>- Unlock Achievements<br><br>";
 

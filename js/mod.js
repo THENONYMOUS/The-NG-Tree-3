@@ -64,7 +64,6 @@ function getPointGen() {
 	if(hasAchievement('ach', 22)) gain = gain.mul(2)
 
 	// NG-
-	if(player.sub.points.gte(1)) gain = gain.div(2)
 	return gain
 }
 
