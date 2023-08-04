@@ -1,5 +1,5 @@
 addLayer("g", {
-    name: "generator",
+    name: "Generator",
     symbol: "G",
     position: 1,
     startData() { return {
@@ -12,7 +12,8 @@ addLayer("g", {
     }},
     color: "#22AA00",
     requires: new Decimal(10),
-    resource: "generators",
+    resource() {return hasAchievement('ach', 54) ? "generaors" : "generators"},
+    resource2() {return hasAchievement('ach', 54) ? "generaor poer" : "generator power"},
     baseResource: "prestige points",
     baseAmount() {return player.p.points},
     type: "static",
@@ -54,7 +55,7 @@ addLayer("g", {
                 "prestige-button",
                 "resource-display",
                 ["display-text", function() {return "You have spent "+formatTime(player[this.layer].resetTime)+" since the last "+tmp[this.layer].name+" reset"}],
-                ["display-text", function() {return "You have "+format(player[this.layer].power)+" generator power, multiplying point gain by x"+format(tmp[this.layer].effect2)}],
+                ["display-text", function() {return "You have "+format(player[this.layer].power)+" "+tmp[this.layer].resource2+", multiplying point gain by x"+format(tmp[this.layer].effect2)}],
                 "blank",
                 "milestones",
                 "blank",
@@ -69,12 +70,17 @@ addLayer("g", {
         },
     },
     branches: ["p"],
-    effect() {return player[this.layer].points.max(0).pow_base(hasAchievement('ach', 32) ? player.t.points : decimalZero.add(2)).sub(1).mul(player.add.points.gte(2) ? tmp.b.effect : 1)},
+    effect() {
+        let effect = player[this.layer].points.max(0).pow_base(hasAchievement('ach', 32) ? player.t.points : decimalZero.add(2)).sub(1).mul(player.add.points.gte(2) ? tmp.b.effect : 1)
+        if(hasAchievement('ach', 53)) effect = effect.mul(player.g.points.min(10)).pow(player.g.points.min(10))
+        if(hasAchievement('ach', 54)) effect = player.g.points.pow(10)
+        return effect
+    },
     effect2() {return player.g.power.add(1).root(4)},
     update(diff) {
         player.g.power = player.g.power.add(this.effect().mul(diff))
     },
-    effectDescription() {return "generating "+format(this.effect())+" generator power every second"},
+    effectDescription() {return "generating "+format(this.effect())+" "+tmp[this.layer].resource2+" every second"},
     layerShown(){return ((upgradeRow('p', [1]) >= 4 && player.sub.points.gte(1)) || player[this.layer].best.gte(1)) && player.navTab === 'tree-tab'},
     milestones: {
         0: {

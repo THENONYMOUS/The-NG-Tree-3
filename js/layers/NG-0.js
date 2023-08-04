@@ -66,7 +66,7 @@ addLayer("p", {
 })
 */
 addLayer("p", {
-    name: "prestige",
+    name: "Prestige",
     symbol: "P",
     position: 0,
     startData() { return {
@@ -79,7 +79,9 @@ addLayer("p", {
     canReset() {
         let prestigeReq = new Decimal(1)
         if(player.sub.points.gte(3)) prestigeReq = prestigeReq.add(1)
-        if(player.sub.points.gte(3) && player.add.points.gte(1)) prestigeReq = prestigeReq.mul(upgradeRow('p', [1, 2]).add(1))
+        if(player.sub.points.gte(3) && player.add.points.gte(1)) prestigeReq = prestigeReq.mul(upgradeRow('p', [1, 2, 3]).add(1))
+        if(hasAchievement('ach', 52)) prestigeReq = prestigeReq.div(player.b.points.add(1)).ceil()
+        prestigeReq = prestigeReq.max(1)
         return new Decimal(tmp[this.layer].resetGain).gte(prestigeReq) && player.points.gte(10)
     },
     color: "#00AAFF",
@@ -97,7 +99,7 @@ addLayer("p", {
     },
     gainMult() {
         mult = new Decimal(1)
-        if(player.add.points.gte(1)) mult = mult.add(upgradeRow('p', [1, 2]))
+        if(player.add.points.gte(1)) mult = mult.add(upgradeRow('p', [1, 2, 3]))
         if(player.sub.points.gte(1)) mult = mult.div(2)
         if(hasAchievement('ach', 32)) mult = mult.mul(player.t.points.add(1))
         return mult
@@ -144,54 +146,87 @@ addLayer("p", {
     layerShown(){return player.navTab === 'tree-tab'},
     upgrades: {
         11: {
-            title: "Prestige Upgrade 1-1",
+            title() {return tmp[this.layer].name+" Upgrade 1-1"},
             description: "Increase Point Gain by 1",
             cost() {return new Decimal(1).times(player.sub.points.gte(2) ? upgradeRow('p', [1]).add(1) : 1)},
         },
         12: {
-            title: "Prestige Upgrade 1-2",
+            title() {return tmp[this.layer].name+" Upgrade 1-2"},
             description: "Increase Point Gain by 1",
             cost() {return new Decimal(1).times(player.sub.points.gte(2) ? upgradeRow('p', [1]).add(1) : 1)},
         },
         13: {
-            title: "Prestige Upgrade 1-3",
+            title() {return tmp[this.layer].name+" Upgrade 1-3"},
             description: "Increase Point Gain by 1",
             cost() {return new Decimal(1).times(player.sub.points.gte(2) ? upgradeRow('p', [1]).add(1) : 1)},
         },
         14: {
-            title: "Prestige Upgrade 1-4",
+            title() {return tmp[this.layer].name+" Upgrade 1-4"},
             description: "Increase Point Gain by 1",
             cost() {return new Decimal(1).times(player.sub.points.gte(2) ? upgradeRow('p', [1]).add(1) : 1)},
         },
 
         21: {
-            title: "Prestige Upgrade 2-1",
+            title() {return tmp[this.layer].name+" Upgrade 2-1"},
             description: "Increase Point Gain by 1",
             cost() {return new Decimal(100).times(player.sub.points.gte(2) ? upgradeRow('p', [2]).add(1) : 1)},
             unlocked() {return player.add.points.gte(1)},
         },
         22: {
-            title: "Prestige Upgrade 2-2",
+            title() {return tmp[this.layer].name+" Upgrade 2-2"},
             description: "Increase Point Gain by 1",
             cost() {return new Decimal(100).times(player.sub.points.gte(2) ? upgradeRow('p', [2]).add(1) : 1)},
             unlocked() {return player.add.points.gte(1)},
         },
         23: {
-            title: "Prestige Upgrade 2-3",
+            title() {return tmp[this.layer].name+" Upgrade 2-3"},
             description: "Increase Point Gain by 1",
             cost() {return new Decimal(100).times(player.sub.points.gte(2) ? upgradeRow('p', [2]).add(1) : 1)},
             unlocked() {return player.add.points.gte(1)},
         },
         24: {
-            title: "Prestige Upgrade 2-4",
+            title() {return tmp[this.layer].name+" Upgrade 2-4"},
             description: "Increase Point Gain by 1",
             cost() {return new Decimal(100).times(player.sub.points.gte(2) ? upgradeRow('p', [2]).add(1) : 1)},
             unlocked() {return player.add.points.gte(1)},
         },
+
+        31: {
+            title() {return tmp[this.layer].name+" Upgrade 3-1"},
+            description: "Increase Point Gain by 1",
+            cost() {return new Decimal(10).times(upgradeRow('p', [3]).add(1))},
+            unlocked() {return player.sub.points.gte(4)},
+            currencyInternalName: "points",
+            currencyDisplayName: "points",
+        },
+        32: {
+            title() {return tmp[this.layer].name+" Upgrade 3-2"},
+            description: "Increase Point Gain by 1",
+            cost() {return new Decimal(10).times(upgradeRow('p', [3]).add(1))},
+            unlocked() {return player.sub.points.gte(4)},
+            currencyInternalName: "points",
+            currencyDisplayName: "points",
+        },
+        33: {
+            title() {return tmp[this.layer].name+" Upgrade 3-3"},
+            description: "Increase Point Gain by 1",
+            cost() {return new Decimal(10).times(upgradeRow('p', [3]).add(1))},
+            unlocked() {return player.sub.points.gte(4)},
+            currencyInternalName: "points",
+            currencyDisplayName: "points",
+        },
+        34: {
+            title() {return tmp[this.layer].name+" Upgrade 3-4"},
+            description: "Increase Point Gain by 1",
+            cost() {return new Decimal(10).times(upgradeRow('p', [3]).add(1))},
+            unlocked() {return player.sub.points.gte(4)},
+            currencyInternalName: "points",
+            currencyDisplayName: "points",
+        },
     },
 })
 addLayer("b", {
-    name: "booster",
+    name() {return player.sub.points.gte(4) ? "Boster" : "Booster"},
     symbol: "B",
     position: 0,
     startData() { return {
@@ -203,7 +238,7 @@ addLayer("b", {
     }},
     color: "#0055FF",
     requires: new Decimal(10),
-    resource: "boosters",
+    resource() {return player.sub.points.gte(4) ? "bosters" : "boosters"},
     baseResource: "prestige points",
     baseAmount() {return player.p.points},
     type: "static",
@@ -259,30 +294,34 @@ addLayer("b", {
         },
     },
     branches: ["p"],
-    effect() {return player[this.layer].points.max(0).pow_base(upgradeRow('b', [1]).add(2))},
+    effect() {
+        let effect = player[this.layer].points.max(0).pow_base(upgradeRow('b', [1]).add(2))
+        if(player.sub.points.gte(1)) effect = effect.div(2).max(1)
+        return effect
+    },
     effectDescription() {return "multiplying point gain by x"+format(this.effect())},
     layerShown(){return (upgradeRow('p', [1]) >= 4 || player[this.layer].best.gte(1)) && player.navTab === 'tree-tab'},
     upgrades: {
         11: {
-            title: "Booster Upgrade 1-1",
+            title() {return tmp[this.layer].name+" Upgrade 1-1"},
             description: "Increase Booster effect by 1",
             cost() {return upgradeRow('b', [1]).pow(2).add(3)},
             unlocked() {return hasAchievement('ach', 13)},
         },
         12: {
-            title: "Booster Upgrade 1-2",
+            title() {return tmp[this.layer].name+" Upgrade 1-2"},
             description: "Increase Booster effect by 1",
             cost() {return upgradeRow('b', [1]).pow(2).add(3)},
             unlocked() {return hasAchievement('ach', 13)},
         },
         13: {
-            title: "Booster Upgrade 1-3",
+            title() {return tmp[this.layer].name+" Upgrade 1-3"},
             description: "Increase Booster effect by 1",
             cost() {return upgradeRow('b', [1]).pow(2).add(3)},
             unlocked() {return hasAchievement('ach', 13)},
         },
         14: {
-            title: "Booster Upgrade 1-4",
+            title() {return tmp[this.layer].name+" Upgrade 1-4"},
             description: "Increase Booster effect by 1",
             cost() {return upgradeRow('b', [1]).pow(2).add(3)},
             unlocked() {return hasAchievement('ach', 13)},

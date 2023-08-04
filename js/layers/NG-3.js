@@ -1,5 +1,5 @@
 addLayer("t", {
-    name: "time capsules",
+    name: "Time capsules",
     symbol: "T",
     position: 1,
     startData() { return {

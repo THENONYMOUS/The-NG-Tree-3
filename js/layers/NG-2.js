@@ -11,7 +11,7 @@ addLayer("ach", {
     }},
     color: "#FFCC00",
     requires: new Decimal(10),
-    resource: "prestige points",
+    resource: "puseless aperclips",
     baseResource: "points",
     baseAmount() {return player.points},
     type: "none",
@@ -118,6 +118,81 @@ addLayer("ach", {
             tooltip: "Reach NG-4<br>",
             done() {return player.sub.points.gte(4)},
             unlocked() {return hasAchievement('ach', 24)},
+        },
+
+        41: {
+            name: "Wow this is actually pretty fast",
+            tooltip: "Prestige once in NG-4",
+            done() {return player.sub.points.gte(4) && player.p.points.gte(1)},
+            unlocked() {return player.sub.points.gte(4)},
+        },
+        42: {
+            name: "Wait why is this so fast",
+            tooltip: "Purchase 8 Prestige Upgrades in NG-4<br>Reward: Point Gain is Doubled, up to 10",
+            done() {return player.sub.points.gte(4) && upgradeRow('p', [1, 2, 3]).gte(8)},
+            unlocked() {return player.sub.points.gte(4)},
+        },
+        43: {
+            name: "Uhh, sure...",
+            tooltip: "Get a Generator in NG-4",
+            done() {return player.sub.points.gte(4) && player.g.points.gte(1)},
+            unlocked() {return player.sub.points.gte(4)},
+        },
+        44: {
+            name: "It's Bostin' Time",
+            tooltip: "Sacrifice much of your point gain and get a Boster",
+            done() {return player.sub.points.gte(4) && player.b.points.gte(1)},
+            unlocked() {return player.sub.points.gte(4)},
+        },
+
+        51: {
+            name: "Mor Bostin'!",
+            tooltip: "No sacrifice of your point gain and get 2 Boster<br>Reward: Increase points gain by boster",
+            done() {return player.sub.points.gte(4) && player.b.points.gte(2) && achievementRow('ach', [4]).gte(4)},
+            unlocked() {return achievementRow('ach', [4]).gte(4)},
+        },
+        52: {
+            name: "I'm bord, need more bost",
+            tooltip: "Get 11 Prestige Upgrades<br>Reward: After everything else, divide prestige requirement by bosters",
+            done() {return player.sub.points.gte(4) && upgradeRow('p', [1, 2, 3]).gte(11) && achievementRow('ach', [4]).gte(4)},
+            unlocked() {return achievementRow('ach', [4]).gte(4)},
+        },
+        53: {
+            name: "Uhh, I'm not so sure about the effect not getting better 🤨",
+            tooltip: "Get 3 Whole Generators<br>Reward: Generator effect is multiplied then raised to the power of generators, but it's capped at 10",
+            done() {return player.sub.points.gte(4) && player.g.points.gte(3) && achievementRow('ach', [4]).gte(4)},
+            unlocked() {return achievementRow('ach', [4]).gte(4)},
+        },
+        54: {
+            name: "OK WHAT IS HAPPENING WITH THESE GENERATORS?!?",
+            tooltip: "Get 3 Whole Generators and a Time Capsule<br>Reward: Corrupt Generators",
+            done() {return player.sub.points.gte(4) && player.g.points.gte(3) && player.t.points.gte(1) && achievementRow('ach', [4]).gte(4)},
+            unlocked() {return achievementRow('ach', [4]).gte(4)},
+        },
+
+        61: {
+            name: "OH HERE WE GO AGAIN DO WE?",
+            tooltip: "Reach NG-4++<br>Reward: Point gain is increased by achievements / 10",
+            done() {return player.sub.points.gte(4) && player.add.points.gte(2)},
+            unlocked() {return hasAchievement('ach', 61)},
+        },
+        62: {
+            name: "It's Generaorin' Time",
+            tooltip: "Get 6 Generaors<br>Reward: An Achievement",
+            done() {return player.sub.points.gte(4) && player.g.points.gte(6)},
+            unlocked() {return hasAchievement('ach', 61)},
+        },
+        63: {
+            name: "B-B-Bost",
+            tooltip: "Get 3 Boster Upgrads<br>Reward: An Achievement",
+            done() {return player.sub.points.gte(4) && upgradeRow('b', [1]).gte(3)},
+            unlocked() {return hasAchievement('ach', 61)},
+        },
+        64: {
+            name: "Well that was Ab[ost]rupt",
+            tooltip: "Get 5 Time Capsules<br>Reward: Subtractions reduce Subtraction and Addition Costs, but you're not getting more additions until NG-5",
+            done() {return player.sub.points.gte(4) && player.t.points.gte(5)},
+            unlocked() {return hasAchievement('ach', 61)},
         },
     },
 })
